@@ -6,10 +6,10 @@ const Header: React.FC = () => {
     <div className="flex items-center justify-around border-b">
       <img className="h-36" src="./images/siteLogo.png"></img>
       <div className="flex justify-around w-56 font-bold">
-        <Link href="./">
+        <Link href="/">
           <a>About</a>
         </Link>
-        <Link href="./">
+        <Link href="/">
           <a>Sign In</a>
         </Link>
       </div>
