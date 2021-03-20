@@ -1,6 +1,16 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 
 const BuildingSearch: React.FC = () => {
+  const [address, setAddress] = useState({
+    id: 0,
+    address: null,
+  })
+
+  function handleChange(event) {
+    setAddress({ address: event.target.value })
+    console.log(address)
+  }
+
   useEffect(() => {
     const center = { lat: 50.064192, lng: -130.605469 }
     // Create a bounding box with sides ~10km away from the center point
@@ -17,9 +27,10 @@ const BuildingSearch: React.FC = () => {
       fields: ['address_components', 'geometry', 'icon', 'name'],
       origin: center,
       strictBounds: false,
-      types: ['establishment'],
+      types: ['address'],
     }
     const autocomplete = new google.maps.places.Autocomplete(input, options)
+    autocomplete.setFields(['place_id', 'geometry', 'name'])
   }, [])
 
   return (
@@ -31,6 +42,7 @@ const BuildingSearch: React.FC = () => {
           id="buildingSearch"
           type="text"
           placeholder="Enter your building address"
+          onChange={handleChange}
         ></input>
         <img src="./images/search.png"></img>
       </div>
