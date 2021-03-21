@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react'
 
+interface IAddress {
+  address: string
+}
+
 const BuildingSearch: React.FC = () => {
-  const [address, setAddress] = useState({
-    id: 0,
+  const [address, setAddress] = useState<IAddress>({
     address: null,
   })
 
