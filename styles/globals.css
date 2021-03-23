@@ -19,3 +19,7 @@ a:hover {
   cursor: pointer;
   color: black;
 }
+
+#magnifyingGlass {
+  height: 3rem;
+}
