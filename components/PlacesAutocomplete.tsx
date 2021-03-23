@@ -1,7 +1,11 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import usePlacesAutocomplete from 'use-places-autocomplete'
+import { db } from '../services/firebase'
 
 const PlacesAutocomplete: React.FC = () => {
+  const [buildingModal, setShowBuildingModal] = useState(false)
+  const ref = useRef()
+
   const {
     ready,
     value,
@@ -11,20 +15,32 @@ const PlacesAutocomplete: React.FC = () => {
   } = usePlacesAutocomplete({
     debounce: 300,
   })
-  const ref = useRef()
+
   const handleInput = (e) => {
     setValue(e.target.value)
   }
 
-  const handleSelect = ({ description }) => () => {
-    //second parameter "false" prevents requesting from the api again
+  const handleSelect = ({ description }) => async () => {
     setValue(description, false)
     clearSuggestions()
+    try {
+      db.ref(description).once('value', async (snapshot) => {
+        if (!snapshot.exists()) {
+          await db.ref(description).push({
+            content: value,
+            timestamp: Date.now(),
+          })
+          setValue('')
+        } else {
+          setShowBuildingModal(true)
+        }
+      })
+    } catch (error) {
+      console.error(error)
+    }
   }
-
   const renderSuggestions = () =>
     data.map((suggestion) => {
-      console.log(suggestion)
       const {
         place_id,
         structured_formatting: { main_text, secondary_text },
@@ -48,7 +64,7 @@ const PlacesAutocomplete: React.FC = () => {
         placeholder="Enter your building address"
       />
       {status === 'OK' && <ul>{renderSuggestions()}</ul>}
-      <img id="magnifyingGlass" src="/images/search.png" />
+      {buildingModal ? <div>That building already exists join here!</div> : ''}
     </div>
   )
 }
