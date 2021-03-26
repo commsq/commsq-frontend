@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react'
 import usePlacesAutocomplete from 'use-places-autocomplete'
 import { db } from '../services/firebase'
+import BuildingExistsModal from './BuildingExistsModal'
 
 const PlacesAutocomplete: React.FC = () => {
   const [buildingModal, setShowBuildingModal] = useState(false)
@@ -64,7 +65,7 @@ const PlacesAutocomplete: React.FC = () => {
         placeholder="Enter your building address"
       />
       {status === 'OK' && <ul>{renderSuggestions()}</ul>}
-      {buildingModal ? <div>That building already exists join here!</div> : ''}
+      {buildingModal ? <BuildingExistsModal buildingAddress={value} /> : ''}
     </div>
   )
 }
