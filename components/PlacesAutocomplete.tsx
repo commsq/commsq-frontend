@@ -17,42 +17,45 @@ const PlacesAutocomplete: React.FC = () => {
     debounce: 300,
   })
 
-  const handleInput = (e) => {
+  function handleInput(e) {
     setValue(e.target.value)
   }
 
-  const handleSelect = ({ description }) => async () => {
-    setValue(description, false)
-    clearSuggestions()
-    try {
-      db.ref(description).once('value', async (snapshot) => {
-        if (!snapshot.exists()) {
-          await db.ref(description).push({
-            content: value,
-            timestamp: Date.now(),
-          })
-          setValue('')
-        } else {
-          setShowBuildingModal(true)
-        }
-      })
-    } catch (error) {
-      console.error(error)
+  function handleSelect({ description }) {
+    return async () => {
+      setValue(description, false)
+      clearSuggestions()
+      try {
+        db.ref(description).once('value', async (snapshot) => {
+          if (!snapshot.exists()) {
+            await db.ref(description).push({
+              content: value,
+              timestamp: Date.now(),
+            })
+            setValue('')
+          } else {
+            setShowBuildingModal(true)
+          }
+        })
+      } catch (error) {
+        console.error(error)
+      }
     }
   }
-  const renderSuggestions = () =>
-    data.map((suggestion) => {
+
+  function renderSuggestions() {
+    return data.map((suggestion) => {
       const {
         place_id,
         structured_formatting: { main_text, secondary_text },
       } = suggestion
-
       return (
         <li key={place_id} onClick={handleSelect(suggestion)}>
           <strong>{main_text}</strong> <small>{secondary_text}</small>
         </li>
       )
     })
+  }
 
   return (
     <div ref={ref} className="w-full">
@@ -65,7 +68,11 @@ const PlacesAutocomplete: React.FC = () => {
         placeholder="Enter your building address"
       />
       {status === 'OK' && <ul>{renderSuggestions()}</ul>}
-      {buildingModal ? <BuildingExistsModal buildingAddress={value} /> : ''}
+      {buildingModal ? (
+        <BuildingExistsModal buildingAddress={value} setShowBuildingModal={setShowBuildingModal} />
+      ) : (
+        ''
+      )}
     </div>
   )
 }
