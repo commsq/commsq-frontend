@@ -1,10 +1,10 @@
 import React, { useRef, useState } from 'react'
 import usePlacesAutocomplete from 'use-places-autocomplete'
 import { db } from '../services/firebase'
-import BuildingExistsModal from './BuildingExistsModal'
+import { useRouter } from 'next/router'
 
 const PlacesAutocomplete: React.FC = () => {
-  const [buildingModal, setShowBuildingModal] = useState(false)
+  const router = useRouter()
   const ref = useRef()
 
   const {
@@ -34,7 +34,7 @@ const PlacesAutocomplete: React.FC = () => {
             })
             setValue('')
           } else {
-            setShowBuildingModal(true)
+            router.push('/BuildingExists')
           }
         })
       } catch (error) {
@@ -68,11 +68,6 @@ const PlacesAutocomplete: React.FC = () => {
         placeholder="Enter your building address"
       />
       {status === 'OK' && <ul>{renderSuggestions()}</ul>}
-      {buildingModal ? (
-        <BuildingExistsModal buildingAddress={value} setShowBuildingModal={setShowBuildingModal} />
-      ) : (
-        ''
-      )}
     </div>
   )
 }
