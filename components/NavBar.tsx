@@ -12,15 +12,19 @@ const NavBar: React.FC = () => {
 
   return (
     <div className="w-screen flex">
-      <div className={location === '/bulletin' ? 'selectedNavItem' : 'navItem'}>
-        <Link href="/bulletin">Bulletin Page</Link>
-      </div>
-      <div className={location === '/communitychat' ? 'selectedNavItem' : 'navItem'}>
-        <Link href="/communitychat">Community Chat</Link>
-      </div>
-      <div className={location === '/myprofile' ? 'selectedNavItem' : 'navItem'}>
-        <Link href="/myprofile">My Profile</Link>
-      </div>
+      <Link href="/bulletin">
+        <div className={location === '/bulletin' ? 'selectedNavItem' : 'navItem'}>
+          Bulletin Page
+        </div>
+      </Link>
+      <Link href="/communitychat">
+        <div className={location === '/communitychat' ? 'selectedNavItem' : 'navItem'}>
+          Community Chat
+        </div>
+      </Link>
+      <Link href="/myprofile">
+        <div className={location === '/myprofile' ? 'selectedNavItem' : 'navItem'}>My Profile</div>
+      </Link>
     </div>
   )
 }

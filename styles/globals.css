@@ -24,9 +24,9 @@ body {
 }
 
 .navItem {
-  @apply flex-1 p-4 md:p-10 md:mt-2 md:text-2xl text-center border-2 bg-red-300 hover:bg-red-400 rounded-t-lg;
+  @apply flex-1 p-4 md:p-10 md:mt-2 md:text-2xl text-center border-2 bg-red-300 hover:bg-red-400 rounded-t-lg cursor-pointer;
 }
 
 .selectedNavItem {
-  @apply flex-1 p-4 md:p-10 md:mt-2 md:text-2xl text-center border-t-2 rounded-t-lg;
+  @apply flex-1 p-4 md:p-10 md:mt-2 md:text-2xl text-center border-t-2 rounded-t-lg cursor-pointer;
 }
