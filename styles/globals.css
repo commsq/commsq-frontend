@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  box-sizing: border-box;
+}
+
 textarea,
 input {
   outline: none;
@@ -16,18 +20,13 @@ li:hover {
 }
 
 body {
-  font-family: montserrat;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
-a {
-  color: rgb(61, 61, 60);
+.navItem {
+  @apply flex-1 p-4 md:p-10 md:mt-2 md:text-2xl text-center border-2 bg-red-300 hover:bg-red-400 rounded-t-lg;
 }
 
-a:hover {
-  cursor: pointer;
-  color: black;
-}
-
-#magnifyingGlass {
-  height: 3rem;
+.selectedNavItem {
+  @apply flex-1 p-4 md:p-10 md:mt-2 md:text-2xl text-center border-t-2 rounded-t-lg;
 }
