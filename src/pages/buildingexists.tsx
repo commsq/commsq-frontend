@@ -1,7 +1,7 @@
 import React from 'react'
-import Header from '../components/Header'
-import SignUp from '../components/SignUp'
-const BuildingExists = () => {
+import Header from './components/Header'
+import SignUp from './components/SignUp'
+const BuildingExists: React.FC = () => {
   return (
     <>
       <Header />

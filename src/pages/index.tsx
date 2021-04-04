@@ -1,6 +1,6 @@
 import React from 'react'
-import Header from '../components/Header'
-import BuildingSearch from '../components/BuildingSearch'
+import Header from './components/Header'
+import BuildingSearch from './components/BuildingSearch'
 import Head from 'next/head'
 const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY
 
