@@ -1,5 +1,4 @@
-import React from 'react'
-import NavBar from '../components/NavBar'
+import NavBar from '@/components/NavBar'
 
 const MyProfile: React.FC = () => {
   return (

@@ -1,5 +1,3 @@
-import React from 'react'
-
 const SignUp: React.FC = () => {
   return (
     <div className="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2">
@@ -41,13 +39,13 @@ const SignUp: React.FC = () => {
 
         <div className="text-center text-sm text-grey-dark mt-4">
           By signing up, you agree to the
-          <a className="no-underline border-b border-grey-dark text-grey-dark" href="#">
+          <span className="no-underline border-b border-grey-dark text-grey-dark">
             Terms of Service
-          </a>{' '}
+          </span>{' '}
           and
-          <a className="no-underline border-b border-grey-dark text-grey-dark" href="#">
+          <span className="no-underline border-b border-grey-dark text-grey-dark">
             Privacy Policy
-          </a>
+          </span>
         </div>
       </div>
 
