@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+textarea,
+input {
+  outline: none;
+}
+
+li {
+  cursor: pointer;
+}
+
+.liSelected,
+li:hover {
+  background-color: lightgray;
+}
+
+body {
+  font-family: montserrat;
+}
+
+a {
+  color: rgb(61, 61, 60);
+}
+
+a:hover {
+  cursor: pointer;
+  color: black;
+}
