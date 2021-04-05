@@ -52,7 +52,6 @@ const PlacesAutocomplete: React.FC = () => {
 
   function handleKeyDown(event) {
     const listElements = getSuggestionsElements()
-    console.log(listElements)
     if (listElements) {
       if (highLightedIndex === null) {
         setHighLightedIndex(0)
