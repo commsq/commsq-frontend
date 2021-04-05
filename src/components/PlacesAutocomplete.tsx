@@ -98,7 +98,7 @@ const PlacesAutocomplete: React.FC = () => {
           })
           setValue('')
         } else {
-          router.push('/BuildingExists')
+          router.push('/buildingexists')
         }
       })
     } catch (error) {
