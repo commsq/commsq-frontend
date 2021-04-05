@@ -1,10 +1,10 @@
-import { auth } from '../services/firebase'
+import { auth } from '@/services/firebase'
 
-export function signup(email: string, password: string): Promise<unknown> {
+export function signup(email: string, password: string) {
   return auth().createUserWithEmailAndPassword(email, password)
 }
 
-export function login(email: string, password: string): Promise<unknown> {
+export function login(email: string, password: string) {
   return auth().signInWithEmailAndPassword(email, password)
 }
 

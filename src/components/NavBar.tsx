@@ -1,14 +1,14 @@
 import Link from 'next/link'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 const NavBar: React.FC = () => {
-  const [location, setLocation] = useState(null)
+  const [location, setLocation] = useState('')
 
   useEffect(() => {
     if (window.location.pathname) {
       setLocation(window.location.pathname)
     }
-  })
+  }, [])
 
   return (
     <div className="w-screen flex">

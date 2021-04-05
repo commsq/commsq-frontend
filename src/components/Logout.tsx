@@ -1,5 +1,4 @@
-import React from 'react'
-import { logout } from '../utils/helper'
+import { logout } from '@/utils/helper'
 
 const Logout: React.FC = () => {
   return (

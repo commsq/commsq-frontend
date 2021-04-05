@@ -1,7 +1,7 @@
+import { db } from '@/services/firebase'
+import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import usePlacesAutocomplete from 'use-places-autocomplete'
-import { db } from '../services/firebase'
-import { useRouter } from 'next/router'
 
 const PlacesAutocomplete: React.FC = () => {
   const router = useRouter()
