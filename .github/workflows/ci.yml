@@ -13,9 +13,9 @@ jobs:
         with:
           node-version: '12.x'
       - name: Install dependencies
-        run: yarn --frozen-lockfile
+        run: npm ci
       - name: Prettier check
-        run: yarn prettier:check
+        run: npm run prettier:check
   eslint:
     name: ESLint
     runs-on: ubuntu-latest
@@ -26,9 +26,9 @@ jobs:
         with:
           node-version: '12.x'
       - name: Install dependencies
-        run: yarn --frozen-lockfile
+        run: npm ci
       - name: ESLint check
-        run: yarn eslint:check
+        run: npm run eslint:check
   stylelint:
     name: stylelint
     runs-on: ubuntu-latest
@@ -39,9 +39,9 @@ jobs:
         with:
           node-version: '12.x'
       - name: Install dependencies
-        run: yarn --frozen-lockfile
+        run: npm ci
       - name: stylelint check
-        run: yarn stylelint:check
+        run: npm run stylelint:check
   typescript:
     name: TypeScript
     runs-on: ubuntu-latest
@@ -52,6 +52,6 @@ jobs:
         with:
           node-version: '12.x'
       - name: Install dependencies
-        run: yarn --frozen-lockfile
+        run: npm ci
       - name: TypeScript check
-        run: yarn typescript
+        run: npm run typescript
