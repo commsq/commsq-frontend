@@ -11,6 +11,7 @@ li {
   cursor: pointer;
 }
 
+.liSelected,
 li:hover {
   background-color: lightgray;
 }
@@ -26,8 +27,4 @@ a {
 a:hover {
   cursor: pointer;
   color: black;
-}
-
-#magnifyingGlass {
-  height: 3rem;
 }

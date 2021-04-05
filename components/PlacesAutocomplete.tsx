@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import usePlacesAutocomplete from 'use-places-autocomplete'
 import { db } from '../services/firebase'
 import { useRouter } from 'next/router'
@@ -6,9 +6,9 @@ import { useRouter } from 'next/router'
 const PlacesAutocomplete: React.FC = () => {
   const router = useRouter()
   const [highLightedIndex, setHighLightedIndex] = useState(null)
-  const ref = useRef()
   const UP_ARROW_KEY = 'ArrowUp'
   const DOWN_ARROW_KEY = 'ArrowDown'
+  const ENTER_KEY = 'Enter'
 
   const {
     ready,
@@ -20,23 +20,65 @@ const PlacesAutocomplete: React.FC = () => {
     debounce: 300,
   })
 
-  function handleKeyDown(event) {
-    let listElements = document.getElementsByClassName('suggestions')
+  function getSuggestionsElements() {
+    const listElements = document.getElementsByTagName('li')
     if (listElements.length === 0) {
-      return
+      return null
     }
+    return Array.from(listElements)
+  }
 
-    listElements = Array.from(listElements)
-    if (event.key === DOWN_ARROW_KEY) {
+  function clearLastSuggestion() {
+    const listElements = getSuggestionsElements()
+    listElements[highLightedIndex].className = ''
+  }
+
+  function clearAllSuggestions() {
+    const listElements = getSuggestionsElements()
+    listElements.forEach((item) => (item.className = ''))
+  }
+
+  function handleHover(event) {
+    const listElements = getSuggestionsElements()
+    if (listElements) {
+      listElements.forEach((item, currentIndex) => {
+        if (item.contains(event.target)) {
+          clearAllSuggestions()
+          setHighLightedIndex(currentIndex)
+        }
+      })
+    }
+  }
+
+  function handleKeyDown(event) {
+    const listElements = getSuggestionsElements()
+    if (listElements) {
       if (highLightedIndex === null) {
         setHighLightedIndex(0)
-      } else {
-        listElements[highLightedIndex].style.backgroundColor = ''
-        setHighLightedIndex(highLightedIndex + 1)
+        return
       }
-    } else if (event.key === UP_ARROW_KEY) {
-      listElements[highLightedIndex].style.backgroundColor = ''
-      setHighLightedIndex(highLightedIndex - 1)
+      clearLastSuggestion()
+      switch (event.key) {
+        case DOWN_ARROW_KEY:
+          if (highLightedIndex === listElements.length - 1) {
+            setHighLightedIndex(0)
+            return
+          }
+          setHighLightedIndex(highLightedIndex + 1)
+          break
+        case UP_ARROW_KEY:
+          if (highLightedIndex === 0) {
+            setHighLightedIndex(listElements.length - 1)
+            return
+          }
+          setHighLightedIndex(highLightedIndex - 1)
+          break
+        case ENTER_KEY:
+          submitBuilding({
+            description: listElements[highLightedIndex].getAttribute('address-field'),
+          })
+          break
+      }
     }
   }
 
@@ -44,25 +86,23 @@ const PlacesAutocomplete: React.FC = () => {
     setValue(e.target.value)
   }
 
-  function handleSelect({ description }) {
-    return async () => {
-      setValue(description, false)
-      clearSuggestions()
-      try {
-        db.ref(description).once('value', async (snapshot) => {
-          if (!snapshot.exists()) {
-            await db.ref(description).push({
-              content: value,
-              timestamp: Date.now(),
-            })
-            setValue('')
-          } else {
-            router.push('/BuildingExists')
-          }
-        })
-      } catch (error) {
-        console.error(error)
-      }
+  async function submitBuilding({ description }) {
+    setValue(description, false)
+    clearSuggestions()
+    try {
+      db.ref(description).once('value', async (snapshot) => {
+        if (!snapshot.exists()) {
+          await db.ref(description).push({
+            content: value,
+            timestamp: Date.now(),
+          })
+          setValue('')
+        } else {
+          router.push('/BuildingExists')
+        }
+      })
+    } catch (error) {
+      console.error(error)
     }
   }
 
@@ -73,7 +113,13 @@ const PlacesAutocomplete: React.FC = () => {
         structured_formatting: { main_text, secondary_text },
       } = suggestion
       return (
-        <li className="suggestions" key={place_id} onClick={handleSelect(suggestion)}>
+        <li
+          address-field={suggestion.description}
+          className="suggestions"
+          key={place_id}
+          onClick={() => submitBuilding(suggestion)}
+          onMouseOver={(event) => handleHover(event)}
+        >
           <strong>{main_text}</strong> <small>{secondary_text}</small>
         </li>
       )
@@ -81,22 +127,14 @@ const PlacesAutocomplete: React.FC = () => {
   }
 
   useEffect(() => {
-    let listElements = document.getElementsByClassName('suggestions')
-    if (listElements.length === 0) {
-      return
+    const listElements = getSuggestionsElements()
+    if (listElements) {
+      listElements[highLightedIndex].className = 'liSelected'
     }
-
-    if (listElements[highLightedIndex] === undefined) {
-      return
-    }
-
-    listElements = Array.from(listElements)
-
-    listElements[highLightedIndex].style.backgroundColor = 'gray'
   }, [highLightedIndex])
 
   return (
-    <div ref={ref} className="w-full">
+    <div className="w-full">
       <input
         id="buildingSearch"
         className="w-full"
