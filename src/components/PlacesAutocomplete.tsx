@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef } from 'react'
 import usePlacesAutocomplete from 'use-places-autocomplete'
 import { db } from '../services/firebase'
 import { useRouter } from 'next/router'
