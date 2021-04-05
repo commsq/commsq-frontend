@@ -11,11 +11,6 @@ li {
   cursor: pointer;
 }
 
-.liSelected,
-li:hover {
-  background-color: lightgray;
-}
-
 body {
   font-family: montserrat;
 }

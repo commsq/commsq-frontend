@@ -52,6 +52,7 @@ const PlacesAutocomplete: React.FC = () => {
 
   function handleKeyDown(event) {
     const listElements = getSuggestionsElements()
+    console.log(listElements)
     if (listElements) {
       if (highLightedIndex === null) {
         setHighLightedIndex(0)
@@ -115,7 +116,7 @@ const PlacesAutocomplete: React.FC = () => {
       return (
         <li
           address-field={suggestion.description}
-          className="suggestions"
+          className="hover:bg-gray-200"
           key={place_id}
           onClick={() => submitBuilding(suggestion)}
           onMouseOver={(event) => handleHover(event)}
@@ -129,7 +130,7 @@ const PlacesAutocomplete: React.FC = () => {
   useEffect(() => {
     const listElements = getSuggestionsElements()
     if (listElements) {
-      listElements[highLightedIndex].className = 'liSelected'
+      listElements[highLightedIndex].className = 'bg-gray-200'
     }
   }, [highLightedIndex])
 
