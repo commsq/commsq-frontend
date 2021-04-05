@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "eslint:check": "eslint --color './**/*.{tsx,ts,jsx,js}'",
+    "preinstall": "node -e \"if(process.env.npm_execpath.indexOf('npm') === -1) throw new Error('You must use npm to install packages.')\"",
     "prettier:check": "prettier './**/*.{tsx,ts,jsx,js}' -c",
     "stylelint:check": "stylelint './src/**/*.css'",
     "start": "next start",
