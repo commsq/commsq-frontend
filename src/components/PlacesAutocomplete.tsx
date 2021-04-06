@@ -5,7 +5,7 @@ import usePlacesAutocomplete from 'use-places-autocomplete'
 
 const PlacesAutocomplete: React.FC = () => {
   const router = useRouter()
-  const [highLightedIndex, setHighLightedIndex] = useState(null)
+  const [highLightedIndex, setHighLightedIndex] = useState(0)
   const UP_ARROW_KEY = 'ArrowUp'
   const DOWN_ARROW_KEY = 'ArrowDown'
   const ENTER_KEY = 'Enter'
@@ -21,24 +21,24 @@ const PlacesAutocomplete: React.FC = () => {
   })
 
   function getSuggestionsElements() {
-    const listElements = document.getElementsByTagName('li')
+    const listElements = document.getElementsByTagName('button')
     if (listElements.length === 0) {
       return null
     }
     return Array.from(listElements)
   }
 
-  function clearLastSuggestion() {
+  function clearLastSuggestion(): void {
     const listElements = getSuggestionsElements()
-    listElements[highLightedIndex].className = ''
+    listElements ? (listElements[highLightedIndex].className = '') : ''
   }
 
   function clearAllSuggestions() {
     const listElements = getSuggestionsElements()
-    listElements.forEach((item) => (item.className = ''))
+    listElements ? listElements.forEach((item) => (item.className = '')) : ''
   }
 
-  function handleHover(event) {
+  function handleHover(event: React.ChangeEvent<HTMLInputElement>): void {
     const listElements = getSuggestionsElements()
     if (listElements) {
       listElements.forEach((item, currentIndex) => {
@@ -50,13 +50,9 @@ const PlacesAutocomplete: React.FC = () => {
     }
   }
 
-  function handleKeyDown(event) {
+  function handleKeyDown(event: KeyboardEvent): void {
     const listElements = getSuggestionsElements()
     if (listElements) {
-      if (highLightedIndex === null) {
-        setHighLightedIndex(0)
-        return
-      }
       clearLastSuggestion()
       switch (event.key) {
         case DOWN_ARROW_KEY:
@@ -82,11 +78,15 @@ const PlacesAutocomplete: React.FC = () => {
     }
   }
 
-  function handleInput(e) {
-    setValue(e.target.value)
+  function handleInput(event: React.ChangeEvent<HTMLInputElement>): void {
+    setValue(event.target.value)
   }
 
-  async function submitBuilding({ description }) {
+  interface SubmitBuildingProps {
+    description: 'string'
+  }
+
+  async function submitBuilding({ description }: SubmitBuildingProps): Promise<void> {
     setValue(description, false)
     clearSuggestions()
     try {
@@ -113,15 +113,17 @@ const PlacesAutocomplete: React.FC = () => {
         structured_formatting: { main_text, secondary_text },
       } = suggestion
       return (
-        <li
+        <button
           address-field={suggestion.description}
           className="hover:bg-gray-200"
           key={place_id}
           onClick={() => submitBuilding(suggestion)}
+          onKeyDown={() => submitBuilding(suggestion)}
           onMouseOver={(event) => handleHover(event)}
+          onFocus={() => {}}
         >
           <strong>{main_text}</strong> <small>{secondary_text}</small>
-        </li>
+        </button>
       )
     })
   }
