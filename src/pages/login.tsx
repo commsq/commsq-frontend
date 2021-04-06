@@ -29,29 +29,31 @@ const Login: React.FC = () => {
         onSubmit={handleSubmit}
         className="w-1/3 h-1/2 p-10 flex flex-col justify-evenly bg-white rounded-xl shadow-2xl"
       >
-        <label>Email/Username</label>
+        <h1 className="text-center mb-8 text-3xl">Login</h1>
         <input
           type="email"
           aria-label="email"
           placeholder="Enter your email"
-          className="form-input px-4 py-3 rounded-lg w-full"
+          className="form-input px-4 py-3 mb-8 rounded-lg w-full"
         />
-        <label>Password</label>
+
         <input
           type={showPass ? 'text' : 'password'}
           aria-label="password"
           placeholder="Enter your password"
-          className="form-password px-4 py-3 rounded-lg w-full"
+          className="form-password px-4 py-3 mb-8 rounded-lg w-full"
         />
-        <div className="flex w-full items-center">
+
+        <div className="flex w-full items-center mb-8">
           <input type="checkbox" onClick={handleCheck} className="h-7 w-7" />
-          <label>&nbsp; Show Password</label>
+          <p>&nbsp; Show Password</p>
         </div>
         <div className="form-error">{error ? <p className="text-red-500">{error}</p> : ''}</div>
+
         <button
           type="submit"
           aria-label="Login"
-          className="px-4 py-3 rounded-xl w-1/2 border bg-green-300 shadow-lg"
+          className="px-4 py-3 rounded-xl w-full border bg-green-300 shadow-lg"
         >
           Login
         </button>
