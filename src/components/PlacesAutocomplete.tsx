@@ -28,7 +28,7 @@ const PlacesAutocomplete: React.FC = () => {
     return Array.from(listElements)
   }
 
-  function clearLastSuggestion(): void {
+  function clearLastSuggestion() {
     const listElements = getSuggestionsElements()
     listElements ? (listElements[highLightedIndex].className = '') : ''
   }
@@ -38,7 +38,7 @@ const PlacesAutocomplete: React.FC = () => {
     listElements ? listElements.forEach((item) => (item.className = '')) : ''
   }
 
-  function handleHover(event: React.ChangeEvent<HTMLInputElement>): void {
+  function handleHover(event: React.ChangeEvent<HTMLInputElement>) {
     const listElements = getSuggestionsElements()
     if (listElements) {
       listElements.forEach((item, currentIndex) => {
@@ -50,7 +50,7 @@ const PlacesAutocomplete: React.FC = () => {
     }
   }
 
-  function handleKeyDown(event: KeyboardEvent): void {
+  function handleKeyDown(event: KeyboardEvent) {
     const listElements = getSuggestionsElements()
     if (listElements) {
       clearLastSuggestion()
@@ -78,15 +78,15 @@ const PlacesAutocomplete: React.FC = () => {
     }
   }
 
-  function handleInput(event: React.ChangeEvent<HTMLInputElement>): void {
+  function handleInput(event: React.ChangeEvent<HTMLInputElement>) {
     setValue(event.target.value)
   }
 
   interface SubmitBuildingProps {
-    description: 'string'
+    description: any
   }
 
-  async function submitBuilding({ description }: SubmitBuildingProps): Promise<void> {
+  async function submitBuilding({ description }: SubmitBuildingProps) {
     setValue(description, false)
     clearSuggestions()
     try {
