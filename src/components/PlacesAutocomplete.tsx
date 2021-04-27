@@ -35,13 +35,11 @@ const PlacesAutocomplete: React.FC = () => {
 
   function clearAllSuggestions(selectedIndex: number) {
     const listElements = getSuggestionsElements()
-    if (listElements) {
-      listElements.forEach((item, currentIndex) => {
-        if (selectedIndex !== currentIndex) {
-          item.className = ''
-        }
-      })
-    }
+    listElements?.forEach((item, currentIndex) => {
+      if (selectedIndex !== currentIndex) {
+        item.className = ''
+      }
+    })
   }
 
   function handleHover(event: any) {
