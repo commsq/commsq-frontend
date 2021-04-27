@@ -30,7 +30,7 @@ const PlacesAutocomplete: React.FC = () => {
 
   function clearLastSuggestion() {
     const listElements = getSuggestionsElements()
-    listElements?.[highLightedIndex].className = ''
+    listElements ? (listElements[highLightedIndex].className = '') : ''
   }
 
   function clearAllSuggestions(selectedIndex: number) {
