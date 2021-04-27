@@ -33,24 +33,30 @@ const PlacesAutocomplete: React.FC = () => {
     listElements ? (listElements[highLightedIndex].className = '') : ''
   }
 
-  function clearAllSuggestions() {
+  function clearAllSuggestions(selectedIndex: number) {
     const listElements = getSuggestionsElements()
-    listElements ? listElements.forEach((item) => (item.className = '')) : ''
+    if (listElements) {
+      listElements.forEach((item, currentIndex) => {
+        if (selectedIndex !== currentIndex) {
+          item.className = ''
+        }
+      })
+    }
   }
 
-  function handleHover(event: React.ChangeEvent<HTMLInputElement>) {
+  function handleHover(event: any) {
     const listElements = getSuggestionsElements()
     if (listElements) {
       listElements.forEach((item, currentIndex) => {
         if (item.contains(event.target)) {
-          clearAllSuggestions()
+          clearAllSuggestions(currentIndex)
           setHighLightedIndex(currentIndex)
         }
       })
     }
   }
 
-  function handleKeyDown(event: KeyboardEvent) {
+  function handleKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
     const listElements = getSuggestionsElements()
     if (listElements) {
       clearLastSuggestion()
@@ -120,7 +126,7 @@ const PlacesAutocomplete: React.FC = () => {
           onClick={() => submitBuilding(suggestion)}
           onKeyDown={() => submitBuilding(suggestion)}
           onMouseOver={(event) => handleHover(event)}
-          onFocus={() => {}}
+          onFocus={(event) => handleHover(event)}
         >
           <strong>{main_text}</strong> <small>{secondary_text}</small>
         </button>
