@@ -1,13 +1,16 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
+
 import { login } from '../utils/helper'
 
 const Login: React.FC = () => {
   const router = useRouter()
-  const [error, setError] = useState(null)
+  const [error, setError] = useState('')
   const [showPass, setShowPass] = useState(false)
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault()
     const resident = e.target[0].value
     const password = e.target[1].value
