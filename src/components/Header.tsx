@@ -6,7 +6,7 @@ const Header: React.FC = () => {
       <img className="h-36" alt="Community Square Logo" src="./images/siteLogo.png"></img>
       <div className="flex justify-around w-56 font-bold">
         <Link href="/">About</Link>
-        <Link href="/signin">Sign In</Link>
+        <Link href="/login">Login</Link>
       </div>
     </div>
   )
